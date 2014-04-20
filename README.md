@@ -48,7 +48,7 @@ ln -s ~/.dotfiles/zsh/zprezto/modules/prompt/functions/prompt_saito_setup
 
 ### Optional
 
-If you want, you can change .gemrc and .gitconfig. Changing .gemrc makes --no-ri and --no-rdoc default when you gem install something. And .gitconfig are some cool alias for status, commit, branch and so on (Remember to change name, email and github name).
+If you want, you can change ```.gemrc``` and ```.gitconfig```. Changing ```.gemrc``` makes ```--no-ri``` and ```--no-rdoc``` default when you ```gem install something```. And ```.gitconfig``` are some cool alias for status, commit, branch and so on (Remember to change name, email and github name).
 
 ```
 ln -s .dotfiles/gemrc .gemrc
