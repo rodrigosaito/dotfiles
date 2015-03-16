@@ -12,6 +12,10 @@ fi
 
 # Customize to your needs...
 
+# Enabling CTRL+LEFT and CTRL+RIGHT to skip words
+bindkey ';5D' emacs-backward-word
+bindkey ';5C' emacs-forward-word
+
 # Load RVM
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
 
