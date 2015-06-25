@@ -5,7 +5,8 @@ set nocompatible
 set encoding=utf-8             " Set default encoding to UTF-8
 syntax on                      " Switch syntax highlighting on
 filetype plugin indent on      " Enable file type detection and do language-dependent indenting.
-set laststatus=2               "first, enable status line always
+set laststatus=2               " first, enable status line always
+set number                     " show line number
 
 " set up some custom colors
 highlight StatusLine ctermbg=235 ctermfg=240
@@ -42,6 +43,7 @@ execute pathogen#infect()
 let g:go_highlight_functions = 1
 let g:go_highlight_methods = 1
 let g:go_highlight_structs = 1
+let g:go_fmt_command = "goimports"
 
 " Setup CtrlP
 set runtimepath^=~/.vim/bundle/ctrlp.vim
