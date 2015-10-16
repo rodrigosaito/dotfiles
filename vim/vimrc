@@ -47,3 +47,9 @@ let g:go_fmt_command = "goimports"
 
 " Setup CtrlP
 set runtimepath^=~/.vim/bundle/ctrlp.vim
+
+" Setup neocomplete
+let g:neocomplete#enable_at_startup = 1
+
+colorscheme molokai
+let g:rehash256 = 1
