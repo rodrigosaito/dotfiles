@@ -56,4 +56,5 @@ let g:rehash256 = 1
 
 if has("gui_macvim")
   set vb
+  set guifont=Monaco:h14
 endif
