@@ -51,6 +51,20 @@ set runtimepath^=~/.vim/bundle/ctrlp.vim
 " Setup neocomplete
 let g:neocomplete#enable_at_startup = 1
 
+" Python
+au FileType python setl sw=4 sts=4 et
+
+" setup syntastic
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+let g:syntastic_loc_list_height=4
+
 colorscheme molokai
 let g:rehash256 = 1
 
