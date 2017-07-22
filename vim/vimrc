@@ -72,3 +72,5 @@ if has("gui_macvim")
   set vb
   set guifont=Monaco:h14
 endif
+
+set clipboard=unnamed
