@@ -9,13 +9,13 @@ set laststatus=2               " first, enable status line always
 set number                     " show line number
 
 " set up some custom colors
-highlight StatusLine ctermbg=235 ctermfg=240
+" highlight StatusLine ctermbg=235 ctermfg=240
 
 " highlight the status bar when in insert mode
-if version >= 700
-  au InsertEnter * hi StatusLine ctermbg=235 ctermfg=2
-  au InsertLeave * hi StatusLine ctermbg=235 ctermfg=240
-endif
+" if version >= 700
+"   au InsertEnter * hi StatusLine ctermbg=235 ctermfg=2
+"   au InsertLeave * hi StatusLine ctermbg=235 ctermfg=240
+" endif
 
 " Whitespace
 set nowrap                        " don't wrap lines
@@ -64,6 +64,17 @@ let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 let g:syntastic_loc_list_height=4
+
+" setup lightline
+let g:lightline = {
+      \ 'active': {
+      \   'left': [ [ 'mode', 'paste' ],
+      \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
+      \ },
+      \ 'component_function': {
+      \   'gitbranch': 'fugitive#head'
+      \ },
+      \ }
 
 colorscheme molokai
 let g:rehash256 = 1
