@@ -16,3 +16,4 @@
   status = auto
 [core]
   editor = vim
+  excludesfile = ~/.dotfiles/gitignore_global
