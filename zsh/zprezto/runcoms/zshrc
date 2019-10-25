@@ -22,4 +22,3 @@ bindkey ';5C' emacs-forward-word
 
 PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
 export JAVA_HOME=$(/usr/libexec/java_home)
-export GOPATH=$HOME/dev
