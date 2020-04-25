@@ -8,6 +8,7 @@ Plug 'christoomey/vim-tmux-navigator'
 Plug 'fatih/vim-go', { 'tag': 'v1.22' }
 Plug 'SirVer/ultisnips'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'tpope/vim-fugitive', { 'tag': 'v3.2' }
 
 call plug#end()
 
