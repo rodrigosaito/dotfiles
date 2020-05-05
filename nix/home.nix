@@ -93,6 +93,7 @@
       vim-go
       ultisnips
       coc-nvim
+      coc-solargraph
 
       # ui
       vim-colorschemes
