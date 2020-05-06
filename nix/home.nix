@@ -59,6 +59,8 @@
       VISUAL = EDITOR;
 
       GOPATH = "$HOME/go";
+
+      HOME_MANAGER_CONFIG="$HOME/.dotfiles/nix/home.nix";
     };
   };
 

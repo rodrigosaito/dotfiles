@@ -13,4 +13,4 @@ git clone https://github.com/rodrigosaito/dotfiles.git .dotfiles
 
 1. Install nix
 2. Install home-manager
-3. `home-manager -f ~/.dotfiles/nix/home.nix switch`
+3. `HOME_MANAGER_CONFIG=~/.dotfiles/nix/home.nix home-manager switch`
