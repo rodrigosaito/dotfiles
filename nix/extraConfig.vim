@@ -113,3 +113,7 @@ let g:lightline = {
 
 set clipboard+=unnamedplus
 colorscheme molokai
+
+" setup fzf-vim
+" bind ctrl+p to open files with fzf
+nnoremap <C-p> :Files<Cr>

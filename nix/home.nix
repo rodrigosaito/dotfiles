@@ -19,30 +19,26 @@
   home.packages = with pkgs; [
     jq
     tree
+    pstree
+    fzf
   ];
 
   home.file.".config/nvim/coc-settings.json".source = ./coc-settings.json;
 
   programs.zsh = {
     enable = true;
-    # enableCompletion = true;
-    # enableAutoSuggestions = true;
+    enableCompletion = true;
+    enableAutosuggestions = true;
+
     oh-my-zsh  = {
       enable = true;
 
       theme = "avit";
     };
 
+    initExtra = builtins.readFile ./extraConfig.zsh;
+
     plugins = [
-      {
-        name = "zsh-autosuggestions";
-        src = pkgs.fetchFromGitHub {
-          owner = "zsh-users";
-          repo = "zsh-autosuggestions";
-          rev = "v0.6.3";
-          sha256 = "1h8h2mz9wpjpymgl2p7pc146c1jgb3dggpvzwm9ln3in336wl95c";
-        };
-      }
       {
         name = "zsh-syntax-highlighting";
         src = pkgs.fetchFromGitHub {
@@ -58,9 +54,15 @@
       EDITOR = "vim";
       VISUAL = EDITOR;
 
-      GOPATH = "$HOME/go";
+      GOPATH = "$HOME";
 
       HOME_MANAGER_CONFIG="$HOME/.dotfiles/nix/home.nix";
+
+      # zsh-autosuggestions
+      ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=10";
+
+      # shopify
+      KUBECONFIG = "${KUBECONFIG:+$KUBECONFIG:}/Users/rodrigosaito/.kube/config:/Users/rodrigosaito/.kube/config.shopify.cloudplatform";
     };
   };
 
@@ -78,6 +80,21 @@
       core = {
         editor = "vim";
       };
+      color = {
+        branch = "auto";
+        diff = "auto";
+        nteractive = "auto";
+        status = "auto";
+      };
+      protocol.version = "2";
+      gc.writeCommitGraph = true;
+      url."https://github.com/Shopify/".insteadOf = [
+        "git@github.com:Shopify/"
+        "git@github.com:shopify/"
+        "ssh://git@github.com/Shopify/"
+        "ssh://git@github.com/shopify/"
+      ];
+      diff.algorithm = "patience";
     };
   };
 
@@ -103,7 +120,7 @@
       lightline-vim
 
       # editor features
-      ctrlp
+      fzf-vim
       vim-tmux-navigator
     ];
   };
@@ -117,10 +134,6 @@
     extraConfig = builtins.readFile ./extraConfig.tmux;
     secureSocket = false;
     newSession = true;
-
-    plugins = with pkgs.tmuxPlugins; [
-      sensible
-    ];
   };
 
   programs.direnv = {

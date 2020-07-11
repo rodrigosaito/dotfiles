@@ -1,5 +1,7 @@
 # Setup 'v' to begin selection as in Vim
 bind-key -T copy-mode-vi v send-keys -X begin-selection
+bind-key -T copy-mode-vi y send-keys -X copy-selection
+bind-key -T copy-mode-vi r send-keys -X rectangle-toggle
 
 # Update default binding of `Enter` to also use copy-pipe
 unbind-key -T copy-mode-vi Enter
@@ -47,7 +49,3 @@ bind -n C-l if-shell "$is_vim" "send-keys C-l" "select-pane -R"
 # use PREFIX | to split window horizontally and PREFIX - to split vertically
 bind | split-window -h
 bind - split-window -v
-
-# mouse integration
-set -g mouse on
-
