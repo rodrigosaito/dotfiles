@@ -34,6 +34,9 @@
       enable = true;
 
       theme = "avit";
+      plugins = [
+        "fzf"
+      ];
     };
 
     initExtra = builtins.readFile ./extraConfig.zsh;
