@@ -136,7 +136,6 @@
     historyLimit = 10000;
     extraConfig = builtins.readFile ./extraConfig.tmux;
     secureSocket = false;
-    newSession = true;
   };
 
   programs.direnv = {
