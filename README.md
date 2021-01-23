@@ -14,3 +14,5 @@ git clone https://github.com/rodrigosaito/dotfiles.git .dotfiles
 1. Install nix
 2. Install home-manager
 3. `HOME_MANAGER_CONFIG=~/.dotfiles/nix/home.nix home-manager switch`
+
+In order to properly render the tmux theme it needs: `fonts-powerline`.

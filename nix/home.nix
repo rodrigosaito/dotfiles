@@ -130,12 +130,17 @@
 
   programs.tmux = {
     enable = true;
+    clock24 = true;
     shortcut = "a";
-    terminal = "screen-256color";
     keyMode = "vi";
-    historyLimit = 10000;
-    extraConfig = builtins.readFile ./extraConfig.tmux;
-    secureSocket = false;
+    plugins = with pkgs.tmuxPlugins; [
+      sensible
+      yank
+      nord
+    ];
+
+    extraConfig = ''
+    '';
   };
 
   programs.direnv = {
