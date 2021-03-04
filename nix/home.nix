@@ -1,20 +1,22 @@
-{ config, pkgs, ... }:
+{ config, lib, pkgs
+, ... }:
 
-{
+let 
+  deps-overlay = self: super: {
+    golangci-lint = super.golangci-lint.overrideAttrs (old: {
+      # for some reason the postInstall hook fails on macos, so overriding it
+      postInstall = "";
+    });
+  };
+in {
+  nixpkgs.overlays = [
+    deps-overlay
+  ];
+
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
 
   programs.bat.enable = true;
-
-  # This value determines the Home Manager release that your
-  # configuration is compatible with. This helps avoid breakage
-  # when a new Home Manager release introduces backwards
-  # incompatible changes.
-  #
-  # You can update Home Manager without changing this value. See
-  # the Home Manager release notes for a list of state version
-  # changes in each release.
-  home.stateVersion = "19.09";
 
   home.packages = with pkgs; [
     jq
@@ -116,6 +118,7 @@
       ultisnips
       coc-nvim
       coc-solargraph
+      coc-go
 
       # ui
       vim-colorschemes
@@ -140,6 +143,16 @@
     ];
 
     extraConfig = ''
+      # smart pane switching with awareness of vim splits http://robots.thoughtbot.com/seamlessly-navigate-vim-and-tmux-splits
+      is_vim='echo "#{pane_current_command}" | grep -iqE "(^|\/)g?(view|n?vim?)(diff)?$"'
+      bind -n C-h if-shell "$is_vim" "send-keys C-h" "select-pane -L"
+      bind -n C-j if-shell "$is_vim" "send-keys C-j" "select-pane -D"
+      bind -n C-k if-shell "$is_vim" "send-keys C-k" "select-pane -U"
+      bind -n C-l if-shell "$is_vim" "send-keys C-l" "select-pane -R"
+
+      # use PREFIX | to split window horizontally and PREFIX - to split vertically
+      bind | split-window -h
+      bind - split-window -v
     '';
   };
 
