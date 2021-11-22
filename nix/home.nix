@@ -8,6 +8,8 @@ let
       postInstall = "";
     });
   };
+
+  kubectl-neat = pkgs.callPackage ./kubectl-neat {};
 in {
   nixpkgs.overlays = [
     deps-overlay
@@ -23,6 +25,7 @@ in {
     tree
     pstree
     fzf
+    kubectl-neat
   ];
 
   home.file.".config/nvim/coc-settings.json".source = ./coc-settings.json;
