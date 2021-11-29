@@ -190,6 +190,7 @@ in {
       vim-colorschemes
       vim-gitgutter 
       lightline-vim
+      nvim-treesitter
 
       # editor features
       fzf-vim
