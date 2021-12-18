@@ -27,3 +27,7 @@
 [user]
 	email = "devnull@gosaito.com"
 	name = "Rodrigo Saito"
+
+[credential "https://github.com"]
+	helper =
+	helper = !/usr/bin/gh auth git-credential
