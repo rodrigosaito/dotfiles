@@ -1,0 +1,29 @@
+[alias]
+	ci = "commit"
+	co = "checkout"
+	st = "status"
+
+[color]
+	branch = "auto"
+	diff = "auto"
+	nteractive = "auto"
+	status = "auto"
+
+[core]
+	editor = "vim"
+
+[diff]
+	algorithm = "patience"
+
+[gc]
+	writeCommitGraph = true
+
+[github]
+	user = "rodrigosaito"
+
+[protocol]
+	version = "2"
+
+[user]
+	email = "devnull@gosaito.com"
+	name = "Rodrigo Saito"
