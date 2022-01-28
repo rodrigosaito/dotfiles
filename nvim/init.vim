@@ -14,6 +14,7 @@ Plug 'quangnguyen30192/cmp-nvim-ultisnips', { 'commit': '78a9452d61bc7f1c3aeb33f
 Plug 'LnL7/vim-nix', { 'commit': '63b47b39c8d481ebca3092822ca8972e08df769b' }
 Plug 'SirVer/ultisnips', { 'tag': '3.2' }
 Plug 'honza/vim-snippets', { 'commit': 'cd6d5f975f729bff209140ea6e6961102e29b079' }
+Plug 'ray-x/go.nvim'
 
 " ui
 Plug 'flazz/vim-colorschemes', { 'commit': 'fd8f122cef604330c96a6a6e434682dbdfb878c9' }
@@ -89,36 +90,6 @@ local on_attach = function(client, bufnr)
   buf_set_keymap('n', '<space>f', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
 end
 
-function goimports(timeoutms)
-  local context = { source = { organizeImports = true } }
-  vim.validate { context = { context, "t", true } }
-
-  local params = vim.lsp.util.make_range_params()
-  params.context = context
-
-  -- See the implementation of the textDocument/codeAction callback
-  -- (lua/vim/lsp/handler.lua) for how to do this properly.
-  local result = vim.lsp.buf_request_sync(0, "textDocument/codeAction", params, timeout_ms)
-  if not result or next(result) == nil then return end
-  local actions = result[1].result
-  if not actions then return end
-  local action = actions[1]
-
-  -- textDocument/codeAction can return either Command[] or CodeAction[]. If it
-  -- is a CodeAction, it can have either an edit, a command or both. Edits
-  -- should be executed first.
-  if action.edit or type(action.command) == "table" then
-    if action.edit then
-      vim.lsp.util.apply_workspace_edit(action.edit)
-    end
-    if type(action.command) == "table" then
-      vim.lsp.buf.execute_command(action.command)
-    end
-  else
-    vim.lsp.buf.execute_command(action)
-  end
-end
-
 -- Setup nvim-cmp.
 local cmp = require'cmp'
 
@@ -168,7 +139,7 @@ nvim_lsp.gopls.setup{
   flags = {
     debounce_text_changes = 150,
   },
-	capabilities = capabilities,
+  capabilities = capabilities,
   settings = {
     gopls = {
       analyses = {
@@ -177,6 +148,9 @@ nvim_lsp.gopls.setup{
     },
   },
 }
+
+local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
+capabilities.textDocument.completion.completionItem.snippetSupport = true
 
 require'nvim-treesitter.configs'.setup {
   ensure_installed = "maintained", -- one of "all", "maintained" (parsers with maintainers), or a list of languages
@@ -192,10 +166,12 @@ require'nvim-treesitter.configs'.setup {
     additional_vim_regex_highlighting = false,
   },
 }
+
+require('go').setup()
 EOF
 
-autocmd BufWritePre *.go lua vim.lsp.buf.formatting()
-autocmd BufWritePre *.go lua goimports(1000)
+" go.nvim
+autocmd BufWritePre *.go :silent! lua require('go.format').goimport()
 
 " setup nvim-cmp
 set completeopt=menu,menuone,noselect

@@ -1,3 +1,14 @@
+## install things
+
+```
+brew install neovim tmux
+
+brew tap homebrew/cask-fonts
+brew install font-hack-nerd-font
+
+brew install zsh-autosuggestions zsh-syntax-highlighting
+```
+
 ## neovim
 
 vim-plug
@@ -6,7 +17,20 @@ https://raw.githubusercontent.com/junegunn/vim-plug/0.10.0/plug.vim
 
 :checkhealth provider
 
+
+### install python provider
+
+```
+python3 -m pip install --user --upgrade pynvim
+```
+
 ## tmux
+
+clone tpm inside tmux/plugins
+
+```
+git clone https://github.com/tmux-plugins/tpm
+```
 
 ~/.config/tmux/tmux.conf
 ~/.config/tmux/plugins/ # gitignored
