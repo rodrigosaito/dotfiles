@@ -53,6 +53,8 @@ source $HOMEBREW_PREFIX/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 # zsh-syntax-highlighting
 source $HOMEBREW_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
+[[ -x $(command -v direnv) ]] && eval "$(direnv hook zsh)"
+
 # Keychain ENV VARS
 
 ### Functions for setting and getting environment variables from the OSX keychain ###
