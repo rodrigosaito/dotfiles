@@ -4,20 +4,19 @@
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 
+export HOMEBREW_PREFIX=${HOMEBREW_PREFIX:-/usr/local}
+
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-ZSH_THEME="simple"
+ZSH_THEME="af-magic"
 
 zstyle ':omz:update' mode reminder  # just remind me to update when it's time
 zstyle ':omz:update' frequency 13
 
 # Uncomment the following line to enable command auto-correction.
 ENABLE_CORRECTION="true"
-
-# Would you like to use another custom folder than $ZSH/custom?
-# ZSH_CUSTOM=/path/to/new-custom-folder
 
 # Which plugins would you like to load?
 # Standard plugins can be found in $ZSH/plugins/
@@ -49,10 +48,10 @@ alias vim="nvim"
 
 # zsh-autosuggestions
 export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=10,underline"
-source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+source $HOMEBREW_PREFIX/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 # zsh-syntax-highlighting
-source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source $HOMEBREW_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 # Keychain ENV VARS
 
@@ -77,14 +76,17 @@ function set-keychain-environment-variable () {
 }
 
 # shopify
-[ -f /opt/dev/dev.sh ] && source /opt/dev/dev.sh
-[ -d /Users/rodrigosaito/src/github.com/Shopify/cloudplatform ] && for file in /Users/rodrigosaito/src/github.com/Shopify/cloudplatform/workflow-utils/*.bash; do source ${file}; done
+if [ -f /opt/dev/dev.sh ]
+then
+  [ -f /opt/dev/dev.sh ] && source /opt/dev/dev.sh
+  [ -d /Users/rodrigosaito/src/github.com/Shopify/cloudplatform ] && for file in /Users/rodrigosaito/src/github.com/Shopify/cloudplatform/workflow-utils/*.bash; do source ${file}; done
 
-if type kubectl-short-aliases > /dev/null; then
-  kubectl-short-aliases
+  if type kubectl-short-aliases > /dev/null; then
+    kubectl-short-aliases
+  fi
+
+  [[ -f /opt/dev/sh/chruby/chruby.sh ]] && type chruby >/dev/null 2>&1 || chruby () { source /opt/dev/sh/chruby/chruby.sh; chruby "$@"; }
+
+  export KUBECONFIG="${KUBECONFIG:+$KUBECONFIG:}/Users/rodrigosaito/.kube/config:/Users/rodrigosaito/.kube/config.shopify.cloudplatform"
+  export MASON_PASSWORD=$(keychain-environment-variable MASON_PASSWORD)
 fi
-
-[[ -f /opt/dev/sh/chruby/chruby.sh ]] && type chruby >/dev/null 2>&1 || chruby () { source /opt/dev/sh/chruby/chruby.sh; chruby "$@"; }
-
-export KUBECONFIG="${KUBECONFIG:+$KUBECONFIG:}/Users/rodrigosaito/.kube/config:/Users/rodrigosaito/.kube/config.shopify.cloudplatform"
-export MASON_PASSWORD=$(keychain-environment-variable MASON_PASSWORD)
