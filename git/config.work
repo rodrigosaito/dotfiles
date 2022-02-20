@@ -1,0 +1,5 @@
+[user]
+	email = "rodrigo.saito@shopify.com"
+
+[include]
+	path = /Users/rodrigosaito/.config/dev/gitconfig

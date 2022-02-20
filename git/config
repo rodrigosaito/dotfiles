@@ -11,14 +11,17 @@
 
 [core]
 	editor = "vim"
+
 [github]
 	user = "rodrigosaito"
-[user]
-	email = "rodrigo.saito@shopify.com"
-	name = "Rodrigo Saito"
 
 [credential "https://github.com"]
 	helper =
 	helper = !/usr/bin/gh auth git-credential
-[include]
-	path = /Users/rodrigosaito/.config/dev/gitconfig
+
+[user]
+	name = "Rodrigo Saito"
+  email = "devnull@gosaito.com"
+
+[includeIf "gitdir:~/src/github.com/Shopify/"]
+  path = config.work
