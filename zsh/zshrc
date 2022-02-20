@@ -75,3 +75,16 @@ function set-keychain-environment-variable () {
     ( [ -n "$1" ] && [ -n "$secret" ] ) || return 1
     security add-generic-password -U -a ${USER} -D "environment variable" -s "${1}" -w "${secret}"
 }
+
+# shopify
+[ -f /opt/dev/dev.sh ] && source /opt/dev/dev.sh
+[ -d /Users/rodrigosaito/src/github.com/Shopify/cloudplatform ] && for file in /Users/rodrigosaito/src/github.com/Shopify/cloudplatform/workflow-utils/*.bash; do source ${file}; done
+
+if type kubectl-short-aliases > /dev/null; then
+  kubectl-short-aliases
+fi
+
+[[ -f /opt/dev/sh/chruby/chruby.sh ]] && type chruby >/dev/null 2>&1 || chruby () { source /opt/dev/sh/chruby/chruby.sh; chruby "$@"; }
+
+export KUBECONFIG="${KUBECONFIG:+$KUBECONFIG:}/Users/rodrigosaito/.kube/config:/Users/rodrigosaito/.kube/config.shopify.cloudplatform"
+export MASON_PASSWORD=$(keychain-environment-variable MASON_PASSWORD)
