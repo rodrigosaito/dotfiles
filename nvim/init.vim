@@ -195,3 +195,5 @@ colorscheme PaperColor
 " setup fzf-vim
 " bind ctrl+p to open files with fzf
 nnoremap <C-p> :Files<Cr>
+
+set runtimepath+=~/.config/nvim/my-snippets
