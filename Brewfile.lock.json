@@ -239,6 +239,20 @@
             }
           }
         }
+      },
+      "pure": {
+        "version": "1.20.1",
+        "bottle": {
+          "rebuild": 0,
+          "root_url": "https://ghcr.io/v2/homebrew/core",
+          "files": {
+            "all": {
+              "cellar": ":any_skip_relocation",
+              "url": "https://ghcr.io/v2/homebrew/core/pure/blobs/sha256:9e8b82ae66359bd42c6fbe83cb51791446ecaaaf32350be71b7081bb4fffb71c",
+              "sha256": "9e8b82ae66359bd42c6fbe83cb51791446ecaaaf32350be71b7081bb4fffb71c"
+            }
+          }
+        }
       }
     },
     "cask": {
@@ -255,7 +269,7 @@
         }
       },
       "raycast": {
-        "version": "1.28.0",
+        "version": "1.29.1",
         "options": {
           "full_name": "raycast"
         }
@@ -265,9 +279,9 @@
   "system": {
     "macos": {
       "monterey": {
-        "HOMEBREW_VERSION": "3.3.15",
+        "HOMEBREW_VERSION": "3.4.0",
         "HOMEBREW_PREFIX": "/usr/local",
-        "Homebrew/homebrew-core": "762dd0df36205fc6b3c9a7d7478bf93f53968ade",
+        "Homebrew/homebrew-core": "1771dafaa80c39b1aed6f184f308da1b0910c8d5",
         "CLT": "13.2.0.0.1.1638488800",
         "Xcode": "13.2.1",
         "macOS": "12.2.1"

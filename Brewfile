@@ -6,6 +6,7 @@ brew "fzf"
 # zsh plugins
 brew "zsh-autosuggestions"
 brew "zsh-syntax-highlighting"
+brew "pure"
 
 # fonts
 cask "font-hack-nerd-font"
