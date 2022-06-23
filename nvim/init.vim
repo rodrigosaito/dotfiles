@@ -2,25 +2,24 @@
 call plug#begin()
 
 " lsp
-Plug 'neovim/nvim-lspconfig', { 'commit': '0f72e5468e510429d5f14b73c93fb528ead1fdaa' }
-Plug 'hrsh7th/cmp-nvim-lsp', { 'commit': '134117299ff9e34adde30a735cd8ca9cf8f3db81' }
-Plug 'hrsh7th/cmp-buffer', { 'commit': 'a0fe52489ff6e235d62407f8fa72aef80222040a' }
-Plug 'hrsh7th/cmp-path', { 'commit': 'e1a69161703171f5804d311005a73b742fbda123' }
-Plug 'hrsh7th/cmp-cmdline', { 'commit': '29ca81a6f0f288e6311b3377d9d9684d22eac2ec' }
-Plug 'hrsh7th/nvim-cmp', { 'commit': '4efecf7f5b86949de387e63fa86715bc39f92219' }
-Plug 'quangnguyen30192/cmp-nvim-ultisnips', { 'commit': '78a9452d61bc7f1c3aeb33f6011513760f705bdf' }
+Plug 'neovim/nvim-lspconfig', { 'commit': '0f06f7ba286efd4ae187abd3391f1574580ff929' }
+Plug 'hrsh7th/cmp-nvim-lsp', { 'commit': 'e6b5feb2e6560b61f31c756fb9231a0d7b10c73d' }
+Plug 'hrsh7th/cmp-buffer', { 'commit': '12463cfcd9b14052f9effccbf1d84caa7a2d57f0' }
+Plug 'hrsh7th/cmp-path', { 'commit': '466b6b8270f7ba89abd59f402c73f63c7331ff6e' }
+Plug 'hrsh7th/cmp-cmdline', { 'commit': 'c36ca4bc1dedb12b4ba6546b96c43896fd6e7252' }
+Plug 'hrsh7th/nvim-cmp', { 'commit': '160405250e85c5d6ca1fd20c4cfc601e6c27ff19' }
+Plug 'quangnguyen30192/cmp-nvim-ultisnips', { 'commit': '21f02b62deb409ce69928a23406076bd0043ddbc' }
 
 " language support
-Plug 'LnL7/vim-nix', { 'commit': '63b47b39c8d481ebca3092822ca8972e08df769b' }
 Plug 'SirVer/ultisnips', { 'tag': '3.2' }
-Plug 'honza/vim-snippets', { 'commit': 'cd6d5f975f729bff209140ea6e6961102e29b079' }
+Plug 'honza/vim-snippets', { 'commit': '6f270bb2d26c38765ff2243e9337c65f8a96a28b' }
 Plug 'ray-x/go.nvim'
 
 " ui
 Plug 'flazz/vim-colorschemes', { 'commit': 'fd8f122cef604330c96a6a6e434682dbdfb878c9' }
 Plug 'airblade/vim-gitgutter', { 'commit': '256702dd1432894b3607d3de6cd660863b331818' }
 Plug 'itchyny/lightline.vim', { 'commit': 'a29b8331e1bb36b09bafa30c3aa77e89cdd832b2' }
-Plug 'nvim-treesitter/nvim-treesitter', { 'commit': '288ef60edde1b5a49c325b0770bdf999ae648a92', 'do': ':TSUpdate'}
+Plug 'nvim-treesitter/nvim-treesitter', { 'commit': 'c9ebd16c2884c3ab7463c6cafa0385971db7456b', 'do': ':TSUpdate'}
 
 " editor features
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
@@ -94,28 +93,25 @@ end
 local cmp = require'cmp'
 
 cmp.setup({
-snippet = {
-  -- REQUIRED - you must specify a snippet engine
-  expand = function(args)
-  vim.fn["UltiSnips#Anon"](args.body) -- For `ultisnips` users.
-end,
-},
-    mapping = {
-      ['<C-b>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), { 'i', 'c' }),
-      ['<C-f>'] = cmp.mapping(cmp.mapping.scroll_docs(4), { 'i', 'c' }),
-      ['<C-Space>'] = cmp.mapping(cmp.mapping.complete(), { 'i', 'c' }),
-      ['<C-y>'] = cmp.config.disable, -- Specify `cmp.config.disable` if you want to remove the default `<C-y>` mapping.
-      ['<C-e>'] = cmp.mapping({
-      i = cmp.mapping.abort(),
-      c = cmp.mapping.close(),
-      }),
-    ['<CR>'] = cmp.mapping.confirm({ select = true }),
-    },
+  snippet = {
+    -- REQUIRED - you must specify a snippet engine
+    expand = function(args)
+      vim.fn["UltiSnips#Anon"](args.body) -- For `ultisnips` users.
+    end,
+  },
+  mapping = {
+    ['<Up>'] = cmp.mapping.select_prev_item(),
+    ['<Down>'] = cmp.mapping.select_next_item(),
+
+    ['<C-Space>'] = cmp.mapping.complete(),
+    ['<C-e>'] = cmp.mapping.abort(),
+    ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+  },
   sources = cmp.config.sources({
-  { name = 'nvim_lsp' },
-  { name = 'ultisnips' }, -- For ultisnips users.
+    { name = 'nvim_lsp' },
+    { name = 'ultisnips' }, -- For ultisnips users.
   }, {
-  { name = 'buffer' },
+    { name = 'buffer' },
   })
 })
 
@@ -149,11 +145,8 @@ nvim_lsp.gopls.setup{
   },
 }
 
-local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
-capabilities.textDocument.completion.completionItem.snippetSupport = true
-
 require'nvim-treesitter.configs'.setup {
-  ensure_installed = "maintained", -- one of "all", "maintained" (parsers with maintainers), or a list of languages
+  ensure_installed = {'dockerfile', 'go', 'gomod', 'json', 'make', 'ruby', 'vim', 'yaml'}, -- one of "all", "maintained" (parsers with maintainers), or a list of languages
   sync_install = false, -- install languages synchronously (only applied to `ensure_installed`)
   ignore_install = { }, -- List of parsers to ignore installing
   highlight = {
@@ -185,7 +178,7 @@ let g:lightline = {
       \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
       \ },
       \ 'component_function': {
-      \   'gitbranch': 'fugitive#head'
+      \   'gitbranch': 'FugitiveHead'
       \ },
       \ }
 

@@ -26,6 +26,7 @@ ENABLE_CORRECTION="true"
 plugins=(
   git
   fzf
+  direnv
 )
 
 source $ZSH/oh-my-zsh.sh
