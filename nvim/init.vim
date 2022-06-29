@@ -190,3 +190,6 @@ colorscheme PaperColor
 nnoremap <C-p> :Files<Cr>
 
 set runtimepath+=~/.config/nvim/my-snippets
+
+" custom filetype detection
+au BufRead,BufNewFile *.yaml.lock		setfiletype yaml
