@@ -10,7 +10,7 @@ export HOMEBREW_PREFIX=${HOMEBREW_PREFIX:-/usr/local}
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-ZSH_THEME=""
+ZSH_THEME="af-magic"
 
 zstyle ':omz:update' mode reminder  # just remind me to update when it's time
 zstyle ':omz:update' frequency 13
@@ -51,6 +51,19 @@ alias vim="nvim"
 export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=10,underline"
 source $HOMEBREW_PREFIX/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 
+### Fix slowness of pastes with zsh-syntax-highlighting.zsh
+pasteinit() {
+  OLD_SELF_INSERT=${${(s.:.)widgets[self-insert]}[2,3]}
+  zle -N self-insert url-quote-magic # I wonder if you'd need `.url-quote-magic`?
+}
+
+pastefinish() {
+  zle -N self-insert $OLD_SELF_INSERT
+}
+zstyle :bracketed-paste-magic paste-init pasteinit
+zstyle :bracketed-paste-magic paste-finish pastefinish
+### Fix slowness of pastes
+
 # zsh-syntax-highlighting
 source $HOMEBREW_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
@@ -78,8 +91,6 @@ function set-keychain-environment-variable () {
     security add-generic-password -U -a ${USER} -D "environment variable" -s "${1}" -w "${secret}"
 }
 
-source $HOMEBREW_PREFIX/share/zsh/site-functions/prompt_pure_setup
-
 # shopify
 if [ -f /opt/dev/dev.sh ]
 then
@@ -93,5 +104,5 @@ then
   [[ -f /opt/dev/sh/chruby/chruby.sh ]] && type chruby >/dev/null 2>&1 || chruby () { source /opt/dev/sh/chruby/chruby.sh; chruby "$@"; }
 
   export KUBECONFIG="${KUBECONFIG:+$KUBECONFIG:}/Users/rodrigosaito/.kube/config:/Users/rodrigosaito/.kube/config.shopify.cloudplatform"
-  export MASON_PASSWORD=$(keychain-environment-variable MASON_PASSWORD)
+  export PATH="$PATH:$HOME/bin"
 fi
