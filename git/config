@@ -17,7 +17,7 @@
 
 [credential "https://github.com"]
 	helper =
-	helper = !/usr/local/bin/gh auth git-credential
+	helper = !/opt/homebrew/bin/gh auth git-credential
 
 [user]
 	name = "Rodrigo Saito"
