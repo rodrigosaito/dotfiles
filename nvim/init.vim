@@ -2,24 +2,24 @@
 call plug#begin()
 
 " lsp
-Plug 'neovim/nvim-lspconfig', { 'commit': '0f06f7ba286efd4ae187abd3391f1574580ff929' }
-Plug 'hrsh7th/cmp-nvim-lsp', { 'commit': 'e6b5feb2e6560b61f31c756fb9231a0d7b10c73d' }
-Plug 'hrsh7th/cmp-buffer', { 'commit': '12463cfcd9b14052f9effccbf1d84caa7a2d57f0' }
-Plug 'hrsh7th/cmp-path', { 'commit': '466b6b8270f7ba89abd59f402c73f63c7331ff6e' }
-Plug 'hrsh7th/cmp-cmdline', { 'commit': 'c36ca4bc1dedb12b4ba6546b96c43896fd6e7252' }
-Plug 'hrsh7th/nvim-cmp', { 'commit': '160405250e85c5d6ca1fd20c4cfc601e6c27ff19' }
+Plug 'neovim/nvim-lspconfig', { 'commit': '7429f810f0998688b50cd304a0d25e846513dfc0' }
+Plug 'hrsh7th/cmp-nvim-lsp', { 'commit': '78924d1d677b29b3d1fe429864185341724ee5a2' }
+Plug 'hrsh7th/cmp-buffer', { 'commit': '3022dbc9166796b644a841a02de8dd1cc1d311fa' }
+Plug 'hrsh7th/cmp-path', { 'commit': '91ff86cd9c29299a64f968ebb45846c485725f23' }
+Plug 'hrsh7th/cmp-cmdline', { 'commit': 'c66c379915d68fb52ad5ad1195cdd4265a95ef1e' }
+Plug 'hrsh7th/nvim-cmp', { 'commit': 'c4dcb1244a8942b8d2bd3c0a441481e12f91cdf1' }
 Plug 'quangnguyen30192/cmp-nvim-ultisnips', { 'commit': '21f02b62deb409ce69928a23406076bd0043ddbc' }
 
 " language support
 Plug 'SirVer/ultisnips', { 'tag': '3.2' }
-Plug 'honza/vim-snippets', { 'commit': '6f270bb2d26c38765ff2243e9337c65f8a96a28b' }
+Plug 'honza/vim-snippets',  { 'commit': 'b47c2e37237875185d170f32cac67af5ab72f22d' }
 Plug 'ray-x/go.nvim'
 
 " ui
 Plug 'flazz/vim-colorschemes', { 'commit': 'fd8f122cef604330c96a6a6e434682dbdfb878c9' }
 Plug 'airblade/vim-gitgutter', { 'commit': '256702dd1432894b3607d3de6cd660863b331818' }
 Plug 'itchyny/lightline.vim', { 'commit': 'a29b8331e1bb36b09bafa30c3aa77e89cdd832b2' }
-Plug 'nvim-treesitter/nvim-treesitter', { 'commit': 'c9ebd16c2884c3ab7463c6cafa0385971db7456b', 'do': ':TSUpdate'}
+Plug 'nvim-treesitter/nvim-treesitter', { 'commit': '1942f3554184e9d9dfb90dcc6542047b8f6511f2', 'do': ':TSUpdate'}
 
 " editor features
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
@@ -127,7 +127,7 @@ for _, lsp in ipairs(servers) do
   }
 end
 
-local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
+local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
 capabilities.textDocument.completion.completionItem.snippetSupport = true
 
 nvim_lsp.gopls.setup{
